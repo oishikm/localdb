@@ -1,4 +1,4 @@
-import localdb
+from localdb import localdb
 
 sample_json = {
     "name" : "GenericName",

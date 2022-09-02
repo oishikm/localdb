@@ -128,5 +128,5 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-# localdb storage directory
+# LocalDB storage directory
 .localdb_storage/

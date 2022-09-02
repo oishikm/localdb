@@ -1,4 +1,4 @@
-from liblocaldb import json_handler
+from localdb.liblocaldb import json_handler
 
 def save(input_obj, db_name='default', collection_name='default'):
     if type(input_obj) is not str:
