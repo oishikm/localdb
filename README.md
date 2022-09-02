@@ -1,5 +1,5 @@
 # localdb
-Offline Database.  
+Offline NoSQL Database.  
   
 No localhost headache.  
 No background daemon.  
