@@ -4,7 +4,7 @@ import os
 
 def createJSON(input_dict):
     output_json = json.dumps(input_dict, indent=4)
-    
+
     print(f'[INFO] Success : Created JSON')
     return output_json
 
@@ -37,10 +37,10 @@ def saveJSON(input_json, db_name='default', col_name='default', name='default'):
 def loadJSON(db_name, col_name, name):
     filename = f'.localdb_storage/{db_name}/{col_name}/{name}.json'
     output_str = None
-    
+
     if os.path.exists(filename):
         with open(filename, "r") as jsonfile:
             output_str = str(jsonfile.read())
-    
+
     print(f'[INFO] Success : Loaded JSON from \'{filename}\'')
     return output_str
