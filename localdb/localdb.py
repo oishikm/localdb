@@ -2,6 +2,10 @@ from localdb.liblocaldb import json_handler, nosql_handler
 import os
 
 
+def set_verbose_logging(boolean):
+    json_handler.VERBOSE_LOGGING = boolean
+
+
 def save(input_obj, db_name='default', collection_name='default', id='default'):
     if type(input_obj) is not str:
         target_json = json_handler.createJSON(input_obj)
@@ -79,3 +83,50 @@ class Collection():
                         break
 
         return target_json
+
+    def findMany(self, search_dict, boolean_relation="and"):
+        """
+        Returns all matching document(s).
+        Default boolean relation is "and" for multiple search keys.
+        """
+        search_items = []
+        target_json_list = []
+        for key in search_dict.keys():
+            search_items.append([key, search_dict[key], 0])
+
+        for filename in os.listdir(self.col_path):
+            if filename.endswith('.json'):
+                id = filename.replace('.json', '')
+                input_json = load(self.parent_db.name, self.name, id)
+                parsed_dict = json_handler.parseJSON(input_json)
+                for key in parsed_dict.keys():
+                    for i in range(len(search_items)):
+                        search_key, search_value, _ = search_items[i]
+                        if key == search_key:
+                            if parsed_dict[key] == search_value:
+                                search_items[i][2] = 1
+                            else:
+                                search_items[i][2] = -1
+
+                results = [row[2] for row in search_items]
+                if boolean_relation == "and":
+                    if -1 in results:
+                        continue
+                    elif 1 in results:
+                        target_json_list.append(input_json)
+                        break
+
+                if boolean_relation == "or":
+                    if 1 in results:
+                        target_json_list.append(input_json)
+                        break
+
+        return target_json_list
+
+    def find(self, search_dict, boolean_relation="and"):
+        """
+        Same as findMany().
+        Returns all matching document(s).
+        Default boolean relation is "and" for multiple search keys.
+        """
+        return self.findMany(search_dict, boolean_relation)
