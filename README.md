@@ -1,6 +1,6 @@
 # localdb
 Offline NoSQL Database.  
   
-No localhost headache.  
-No background daemon.  
-Simple. Fast. Offline.  
+No localhost or network headaches.  
+No background daemons or servers.  
+Simple. Fast. Elegant.  

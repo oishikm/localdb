@@ -47,6 +47,6 @@ def loadJSON(db_name, col_name, name):
         with open(filename, "r") as jsonfile:
             output_str = str(jsonfile.read())
 
-    if VERBOSE_LOGGING == True and output_str is not None:
+    if (VERBOSE_LOGGING == True) and (output_str is not None):
         print(f'[INFO] Success : Loaded JSON from \'{filename}\'')
     return output_str
