@@ -25,6 +25,8 @@ class Collection():
     def __init__(self, col_name, db):
         self.name = col_name
         self.parent_db = db
+        if not os.path.exists(f'.localdb_storage/{self.parent_db.name}/{self.name}'):
+            os.mkdir(f'.localdb_storage/{self.parent_db.name}/{self.name}')
 
     def insert(self, target_dict):
         target_dict, id = nosql_handler.generateID(target_dict)

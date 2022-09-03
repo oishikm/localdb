@@ -1,4 +1,3 @@
-from threading import local
 from localdb import localdb
 
 sample_json = {
