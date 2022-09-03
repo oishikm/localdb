@@ -7,6 +7,6 @@ sample_json = {
 
 db = localdb.Database('TestDB')
 collection = localdb.Collection('GenericPerson', db)
-id = collection.insert(sample_json)
+id = collection.insertOne(sample_json)
 
-print(collection.find_by_id(id))
+print(collection.findByID(id))

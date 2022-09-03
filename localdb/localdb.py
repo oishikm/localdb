@@ -28,10 +28,10 @@ class Collection():
         if not os.path.exists(f'.localdb_storage/{self.parent_db.name}/{self.name}'):
             os.mkdir(f'.localdb_storage/{self.parent_db.name}/{self.name}')
 
-    def insert(self, target_dict):
+    def insertOne(self, target_dict):
         target_dict, id = nosql_handler.generateID(target_dict)
         save(target_dict, self.parent_db.name, self.name, id)
         return id
 
-    def find_by_id(self, id):
+    def findByID(self, id):
         return load(self.parent_db.name, self.name, id)
