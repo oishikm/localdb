@@ -42,6 +42,14 @@ class Collection():
         save(target_dict, self.parent_db.name, self.name, id)
         return id
 
+    def insertMany(self, target_dict_list):
+        id_list = []
+        for target_dict in target_dict_list:
+            target_dict, id = nosql_handler.generateID(target_dict)
+            save(target_dict, self.parent_db.name, self.name, id)
+            id_list.append(id)
+        return id_list
+
     def findByID(self, id):
         return load(self.parent_db.name, self.name, id)
 
@@ -70,10 +78,11 @@ class Collection():
                                 search_items[i][2] = -1
 
                 results = [row[2] for row in search_items]
+                
                 if boolean_relation == "and":
-                    if -1 in results:
+                    if (-1 in results) or (0 in results):
                         continue
-                    elif 1 in results:
+                    else:
                         target_json = input_json
                         break
 
@@ -109,10 +118,11 @@ class Collection():
                                 search_items[i][2] = -1
 
                 results = [row[2] for row in search_items]
+
                 if boolean_relation == "and":
-                    if -1 in results:
+                    if (-1 in results) or (0 in results):
                         continue
-                    elif 1 in results:
+                    else:
                         target_json_list.append(input_json)
                         break
 
