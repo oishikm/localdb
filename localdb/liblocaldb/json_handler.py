@@ -16,7 +16,7 @@ def parseJSON(input_json):
     return output_dict
 
 
-def saveJSON(input_json, db_name='default', name='default'):
+def saveJSON(input_json, db_name='default', col_name='default', name='default'):
     if not os.path.exists('.localdb_storage'):
         os.mkdir('.localdb_storage')
         os.mkdir(f'.localdb_storage/{db_name}')
@@ -24,15 +24,18 @@ def saveJSON(input_json, db_name='default', name='default'):
     if not os.path.exists(f'.localdb_storage/{db_name}'):
         os.mkdir(f'.localdb_storage/{db_name}')
 
-    filename = f'.localdb_storage/{db_name}/{name}.json'
+    if not os.path.exists(f'.localdb_storage/{db_name}/{col_name}'):
+        os.mkdir(f'.localdb_storage/{db_name}/{col_name}')
+
+    filename = f'.localdb_storage/{db_name}/{col_name}/{name}.json'
     with open(filename, "w") as jsonfile:
         jsonfile.write(input_json)
 
     print(f'[INFO] Success : Saved JSON at \'{filename}\'')
 
 
-def loadJSON(db_name, name):
-    filename = f'.localdb_storage/{db_name}/{name}.json'
+def loadJSON(db_name, col_name, name):
+    filename = f'.localdb_storage/{db_name}/{col_name}/{name}.json'
     output_str = None
     
     if os.path.exists(filename):

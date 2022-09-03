@@ -1,3 +1,4 @@
+from threading import local
 from localdb import localdb
 
 sample_json = {
@@ -5,5 +6,8 @@ sample_json = {
     "age" : 99
 }
 
-localdb.save(sample_json, 'TestDB', 'GenericPerson')
-print(localdb.load('TestDB', 'GenericPerson'))
+db = localdb.Database('TestDB')
+collection = localdb.Collection('GenericPerson', db)
+id = collection.insert(sample_json)
+
+print(collection.find_by_id(id))
